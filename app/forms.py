@@ -1,4 +1,11 @@
+# WTF stands for WT Forms. It's a built-in module (or plugin) of FLask that facilitates
+# ...the designing of web forms in Flask web applications
+# FlaskForm is a class that we are importing from the flask_wtf module
+# QUESTION: is it possible to look at the actual code for these things that we're accessing,
+# ...like the FlaskForm class, for example?
 from flask_wtf import FlaskForm
+# These fields are all functions within the wtforms module
+# QUESTION: What's the difference between wtofrms and flask_wtf
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
@@ -43,4 +50,9 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Please use a different username.')
             
 class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Say something', validators=[
+        DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
