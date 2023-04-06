@@ -7,9 +7,17 @@ from flask_wtf import FlaskForm
 # These fields are all functions within the wtforms module
 # QUESTION: What's the difference between wtofrms and flask_wtf
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+# A validator takes an input, verifies it fulfills some criterion, and returns. Or if
+# ...the input fails the validation, it returns a ValidationError.
+# QUESTION: Is "validators" a class within wtforms? Are ValidationError, DataRequired, Email,
+# ... EqualTo, and Length all instances of the validator class?
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+# User is a class within the models module of my microblog app. We are importing the User class
+# ...to use it here in the forms module.
 from app.models import User
 
+# QUESTION: Is this correct?--> All of the classes below are child classes that inherit 
+# ...the functionality of the parent class, FlaskForm, which was imported above.
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
