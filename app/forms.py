@@ -19,6 +19,22 @@ from app.models import User
 # QUESTION: Is this correct?--> All of the classes below are child classes that inherit 
 # ...the functionality of the parent class, FlaskForm, which was imported above.
 class LoginForm(FlaskForm):
+    # username is a variable we're setting. When username is used, it callss the StringField
+    # ...function with 'Username' string and... 
+    # QUESTION: We are passing DataRequired (from wtforms.validators module) to  
+    # ..."validators", but what is "validators" here? Is it a variable?
+    # VALIDATORS IS A PARAMETER. STRINGFIELD IS A CLASS. 
+    # WHEN YOU WRITE STRINGFIELD() YOU'RE CALLING CLASS STRINGFIELD
+    # YOU'RE CALLING IT WITH PARAMETERS AND YOU'RE SAYING USE THESE PARAMETERS TO 
+    # CONSTRUCT AN OBJECT.
+    # IT TAKES CERTAIN PARAMETERS WHEN YOU INSTANTIATE THAT OBJECT
+    # YOU'RE PASSING IN VALIDATORS
+    # VALIDATORS IS TAKING A LIST WITH OWN ITEMS IN IT. DATAREQUIRED IS AN OBJECT. 
+    # YOU'RE CREATING AN INSTANCE OF THAT OBJECT AS A VALIDATOR
+    # A CLASS IS A SET OF INSTRUCTIONS TO CREATE AN OBJECT.
+    # DATAREQUIRED ITSELF IS AN OBJECT. DATAREQUIRED IS AN INSTANCE OF ANOTHER CLASS,
+    # ...THE DATAREQUIRED CLASS
+    
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
@@ -64,3 +80,14 @@ class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
+    
